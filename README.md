@@ -5,8 +5,68 @@ Está desarrollado con Maven + Hibernate + dfva_java , pero no conecta con una b
 
 # Instalación 
 
-    Próximamente
-    
+Se sigue esta guía como proceso de instalación https://www.vultr.com/docs/how-to-install-apache-tomcat-8-on-centos-7
+
+Instale java 
+
+    yum install -y epel-release
+    yum update
+    yum install -y java-1.8.0-openjdk.x86_64 haveged
+
+Cree el usuario tomcat
+
+	sudo groupadd tomcat
+	sudo mkdir /opt/tomcat
+	sudo useradd -s /bin/nologin -g tomcat -d /opt/tomcat tomcat
+
+Descarge tomcat desde la página oficial
+
+    wget http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.45/bin/apache-tomcat-8.5.45.tar.gz
+    tar -zxvf apache-tomcat-8.5.45.tar.gz -C /opt/tomcat --strip-components=1
+
+Cambiando permisos
+
+	cd /opt/tomcat
+	sudo chgrp -R tomcat conf
+	sudo chmod g+rwx conf
+	sudo chmod g+r conf/*
+	sudo chown -R tomcat logs/ temp/ webapps/ work/
+	
+	sudo chgrp -R tomcat bin
+	sudo chgrp -R tomcat lib
+	sudo chmod g+rwx bin
+	sudo chmod g+r bin/*
+
+Cree el archivo `/etc/systemd/system/tomcat.service` según el tutorial de referencia.
+
+Active los servicios de tomcat 
+
+	sudo systemctl start haveged.service
+	sudo systemctl enable haveged.service
+	sudo systemctl start tomcat.service
+	sudo systemctl enable tomcat.service
+	
+Configure la gestión de tomcat editando /opt/tomcat/conf/tomcat-users.xml
+
+	<role rolename="manager-gui"/>
+	<user username="tomcat" password="s3cret" roles="manager-gui,admin-gui"/>
+	
+Copie `dfva_webjava-0.0.1-SNAPSHOT.war`a /opt/tomcat/
+
+	cp dfva_webjava-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/ROOT.war
+	cp dfva_webjava-0.0.1-SNAPSHOT.war /opt/tomcat/webapps/dfva_webjava.war
+
+Algunos archivos estáticos requieren de la ruta dfva_webjava/ por lo que la app se corre en 2 fases
+
+Confie en la CA otorgada
+
+	mv ca_ucr.crt /etc/pki/ca-trust/source/anchors/ca_ucr_cert.pem
+	sudo update-ca-trust extract
+	
+Copie sus archivos de configuración de dfva_java en `/opt/tomcat/.dfva_java`
+
+Verifique que puede firmar en el servicio.
+
 # Archivos de interés 
 
 Debido a que este es un proyecto de demostración y varios archivos no son necesarios para entender el procedimiento se describen cuales 

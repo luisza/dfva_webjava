@@ -28,7 +28,7 @@
                           
     </div>
 </div>
-
+<br><br>
 <script src="static/js/jquery-1.9.1.min.js"></script>
 <script src="static/js/Bccr.Fva.ClienteInterno.Firmador-1.0.3.js" type="text/javascript"></script>
 <script src="static/js/firma-verificacion-1.0.3.js"></script>
