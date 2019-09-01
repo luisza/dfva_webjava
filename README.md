@@ -14,19 +14,24 @@ debe verificar
 
 - `src/dfva_webjava/java/demo/rest/ControlaFirma.java`  las funciones importantes son:
 
-     public ResponseEntity<DfvaRespuesta> firme(..)   // Busca el archivo en disco y lo envía a firmar
-     public String check_firma(..)  // verifica el estado de la transacción
+::
+
+    public ResponseEntity<DfvaRespuesta> firme(..)   // Busca el archivo en disco y lo envía a firmar
+    public String check_firma(..)  // verifica el estado de la transacción
 
 - `src/dfva_webjava/java/demo/rest/StartController.java` las funciones importantes son:
  
-     public String createsign(...)   // Muestra el botón de firma y la ventana de proceso
-     public HttpEntity<byte[]>  download(...) // al finalizar descarga el documento firmado
+::
+
+    public String createsign(...)   // Muestra el botón de firma y la ventana de proceso
+    public HttpEntity<byte[]>  download(...) // al finalizar descarga el documento firmado
 			
 -   `src/dfva_webjava/java/demo/DfvaRespuesta.java`  las funciones importantes son:
 
- 
-     public class DfvaRespuesta implements Serializable 
-     // Esta clase permite serializar la respuesta que se le entrega a dfva_html.
+::
+
+    public class DfvaRespuesta implements Serializable 
+    // Esta clase permite serializar la respuesta que se le entrega a dfva_html.
      
 # Aspectos importantes 
 
